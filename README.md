@@ -3,9 +3,10 @@
 Simple Docker image with a script in [golang](https://golang.org/) to
 execute GET request on an endpoint.
 
-This is usefull if you cannot do cron jobs in your settup.
+This is usefull if you cannot do cron jobs in your application settup.
+
 Just expose a certain route in your web application to execute the job
-or to schedule backround job trigger
+(or to schedule backround job) and trigger
 `little_bastard` image to execute request on it.
 
 
