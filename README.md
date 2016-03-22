@@ -1,7 +1,7 @@
 # Little Bastard
 
 Simple [Docker image](https://hub.docker.com/r/equivalent/little_bastard/) with a script in [golang](https://golang.org/) to
-execute GET request on an endpoint.
+execute GET request on an endpoint (Request Repeater).
 
 This is usefull if you cannot do cron jobs in your application settup.
 
