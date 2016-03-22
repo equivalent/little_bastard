@@ -46,6 +46,39 @@ docker run -e "URL=https://www.my-app.dot/execute-something.html?token=1234556" 
 
 ... if you need something more sofisticated, sorry this image is really basic.
 
+
+## AWS Elastic Beanstalk Dockerrun.aws.json example usage
+
+```json
+{
+  "containerDefinitions": [
+    {
+      "name": "nginx",
+      "image": "........",
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+    },
+    {
+      "name": "request_repeater",
+      "image": "equivalent/little_bastard",
+      "essential": true,
+      "memory": 200,
+      "links": [ "nginx" ],
+      "environment": [
+        {
+          "name": "URL",
+          "value": "http://nginx/sqs_pull"
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## Kill the container
 
 ```bash
