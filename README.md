@@ -79,7 +79,7 @@ docker run -e "URL=https://www.my-app.dot/execute-something.html?token=1234556" 
 }
 ```
 
-Allocating memory to `100`MB is enough. Allocating lower than `90` MB memor will cause container to crush with `oom` (out of memory) in `/var/log/docker-events`
+Allocating memory to `100`MB is enough. Allocating lower than `90` MB memory will cause container to crush with `oom` (out of memory) in `/var/log/docker-events`
 
 ## Kill the container
 
