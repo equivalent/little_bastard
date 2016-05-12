@@ -66,7 +66,7 @@ docker run -e "URL=https://www.my-app.dot/execute-something.html?token=1234556" 
       "name": "request_repeater",
       "image": "equivalent/little_bastard",
       "essential": true,
-      "memory": 200,
+      "memory": 100,
       "links": [ "nginx" ],
       "environment": [
         {
@@ -78,6 +78,8 @@ docker run -e "URL=https://www.my-app.dot/execute-something.html?token=1234556" 
   ]
 }
 ```
+
+Allocating memory to `100`MB is enough. Allocating lower than `90` MB memor will cause container to crush with `oom` (out of memory) in `/var/log/docker-events`
 
 ## Kill the container
 
