@@ -66,7 +66,7 @@ docker run -e "URL=https://www.my-app.dot/execute-something.html?token=1234556" 
       "name": "request_repeater",
       "image": "equivalent/little_bastard",
       "essential": true,
-      "memory": 100,
+      "memory": 150,
       "links": [ "nginx" ],
       "environment": [
         {
@@ -79,7 +79,7 @@ docker run -e "URL=https://www.my-app.dot/execute-something.html?token=1234556" 
 }
 ```
 
-Allocating memory to `100`MB is enough. Allocating lower than `90` MB memory will cause container to crush with `oom` (out of memory) in `/var/log/docker-events`
+Allocating memory to `150`MB should be enough. I'm allocating `100` MB on repeater that does request every `1300 ms`, but it looks like if you want to wait more (e.g. every 20 minutes) you must allocate more memory so `150` MB should be enough for any case.  Allocating lower than `90` MB memory will cause container to crush with `oom` (out of memory) in `/var/log/docker-events` ([more info](http://www.eq8.eu/blogs/25-common-aws-elastic-beanstalk-docker-issues-and-solutions))
 
 ## Kill the container
 
