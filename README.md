@@ -12,6 +12,8 @@ Just expose a certain route in your web application to execute the job
 
 ## Usage
 
+#### Single edpoint
+
 ```bash
 docker pull equivalent/little_bastard
 ```
@@ -44,7 +46,28 @@ You want authentication ? How about passing token param.
 docker run -e "URL=https://www.my-app.dot/execute-something.html?token=1234556" --net="host" equivalent/little_bastard
 ```
 
-**Multiple edpoints**
+
+**docker-compose.yml example**
+
+```yml
+---
+version: '2'
+services:
+  nginx:
+    image: quay.io/myorg/my-nginx-image
+    ports:
+      - "80:80"
+  request_repeater:
+    image: 'equivalent/little_bastard'
+    links:
+      - nginx:nginx
+    environment:
+      URL: 'http://nginx/some-endpoint'
+      SLEEPFOR: 7200
+
+```
+
+#### Multiple endpoints
 
 you need to pass `URLS` env variable with json in format:
 
@@ -59,11 +82,34 @@ you need to pass `URLS` env variable with json in format:
 ```
 
 ```bash
-docker run -e 'URLS={"urls": [{"url":"localhost/sqs_pull", "sleep":1200}, {"url":"localhost/maintenance","sleep":3000}]}' --net="host" equivalent/little_bastard
+docker run -e 'URLS={"urls": [{"url":"http://localhost/some-endpoint", "sleep":1200}, {"url":"http://localhost/another-endpoint","sleep":3000}]}' --net="host" equivalent/little_bastard
 ```
 
-... if you need something more sofisticated, sorry this image is really basic.
+**docker-compose.yml example**
 
+```yml
+---
+version: '2'
+services:
+  nginx:
+    image: quay.io/myorg/my-nginx-image
+    ports:
+      - "80:80"
+  request_repeater:
+    image: 'equivalent/little_bastard'
+    links:
+      - nginx:nginx
+    environment:
+      URLS: '{"urls": [{"url":"http://nginx/some-endpoint", "sleep":1200},
+{"url":"http://nginx/another-endpoint","sleep":7200}]}'
+```
+
+`URL` and `SLEEPFOR` env variables are ignored when you provide `URLS` env
+variable
+
+#### more sofisticated stuff
+
+If you need something more sofisticated, sorry this image is really basic. But we welcome any suggestions or pull requests.
 
 ## AWS Elastic Beanstalk Dockerrun.aws.json example usage
 
@@ -89,7 +135,7 @@ docker run -e 'URLS={"urls": [{"url":"localhost/sqs_pull", "sleep":1200}, {"url"
       "environment": [
         {
           "name": "URL",
-          "value": "http://nginx/sqs_pull"
+          "value": "http://nginx/some-endpoint"
         }
       ]
     }
