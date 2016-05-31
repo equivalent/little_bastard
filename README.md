@@ -44,6 +44,24 @@ You want authentication ? How about passing token param.
 docker run -e "URL=https://www.my-app.dot/execute-something.html?token=1234556" --net="host" equivalent/little_bastard
 ```
 
+**Multiple edpoints**
+
+you need to pass `URLS` env variable with json in format:
+
+```json
+{
+  "urls": [
+    {"url":"http://myserver/some-endpoint", "sleep":4000},
+    {"url":"http://myserver/another-endpoint, "sleep":1200},
+    {"url":"http://myserver/third-endpoint, "sleep":72000}
+  ]
+}
+
+
+```bash
+docker run -e 'URLS={"urls": [{"url":"localhost/sqs_pull", "sleep":1200}, {"url":"localhost/maintenance","sleep":3000}]}' --net="host" equivalent/little_bastard
+```
+
 ... if you need something more sofisticated, sorry this image is really basic.
 
 
