@@ -52,11 +52,11 @@ you need to pass `URLS` env variable with json in format:
 {
   "urls": [
     {"url":"http://myserver/some-endpoint", "sleep":4000},
-    {"url":"http://myserver/another-endpoint, "sleep":1200},
-    {"url":"http://myserver/third-endpoint, "sleep":72000}
+    {"url":"http://myserver/another-endpoint", "sleep":1200},
+    {"url":"http://myserver/third-endpoint", "sleep":72000}
   ]
 }
-
+```
 
 ```bash
 docker run -e 'URLS={"urls": [{"url":"localhost/sqs_pull", "sleep":1200}, {"url":"localhost/maintenance","sleep":3000}]}' --net="host" equivalent/little_bastard
