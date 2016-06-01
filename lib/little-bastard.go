@@ -16,6 +16,18 @@ type UrlsSleepsJSON struct {
 	Urls []UrlSleep `json:"urls"`
 }
 
+// minimum sleep is required in order for this image not to consume all CPU resources
+func minimumSleep() {
+	var minimumSleep int
+	if os.Getenv("MINIMUMSLEEP") == "" {
+		minimumSleep = 500
+	} else {
+		minimumSleep, _ = strconv.Atoi(os.Getenv("MINIMUMSLEEP"))
+	}
+
+	time.Sleep(time.Millisecond * time.Duration(minimumSleep))
+}
+
 func main() {
 	loc, _ := time.LoadLocation("UTC")
 
@@ -29,6 +41,7 @@ func main() {
 		}
 
 		for {
+			minimumSleep()
 			for y, x := range res.Urls {
 				lastExecutions[y] = sleepyRequest(x.Url, loc, lastExecutions[y], x.Sleep)
 			}
@@ -49,6 +62,7 @@ func main() {
 			res := UrlSleep{Url: os.Getenv("URL"), Sleep: sleepFor}
 
 			for {
+				minimumSleep()
 				lastExecution = sleepyRequest(res.Url, loc, lastExecution, res.Sleep)
 			}
 		}
