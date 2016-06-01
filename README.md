@@ -176,6 +176,19 @@ services:
 
 If you need something more sophisticated, sorry this image is really basic. But we welcome any suggestions or pull requests.
 
+## Minimum Sleeptime
+
+In order to avoid docker container to use all CPU resources  there is a minimum sleep
+time implementend set to `500 miliseconds`. If you need to use this
+image without this limit provide one more extra enviroment variable `MINIMUMSLEEP` to the
+`docker run`:
+
+```
+docker run -e "SLEEPFOR=300" -e 'MINIMUMSLEEP=300' -e "URL=http://www.my-app.dot/execute-something.html" equivalent/little_bastard # 300 ms
+
+docker run -e "SLEEPFOR=0" -e 'MINIMUMSLEEP=0' -e "URL=http://www.my-app.dot/execute-something.html" equivalent/little_bastard # no limit
+```
+
 ## Memory consumption
 
 I'm recommending to reserve container memory of `150`MB (e.g.: in AWS EB). That should be  enough.
