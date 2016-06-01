@@ -172,10 +172,11 @@ services:
 }
 ```
 
-#### more sofisticated stuff
+#### more sophisticated stuff
 
-If you need something more sofisticated, sorry this image is really basic. But we welcome any suggestions or pull requests.
+If you need something more sophisticated, sorry this image is really basic. But we welcome any suggestions or pull requests.
 
+## Memory consumption
 
 Allocating memory to `150`MB should be enough. I'm allocating `100` MB on repeater that does request every `1300 ms`, but it looks like if you want to wait more (e.g. every 20 minutes) you must allocate more memory so `150` MB should be enough for any case.  Allocating lower than `90` MB memory will cause container to crush with `oom` (out of memory) in `/var/log/docker-events` ([more info](http://www.eq8.eu/blogs/25-common-aws-elastic-beanstalk-docker-issues-and-solutions))
 
