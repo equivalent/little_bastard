@@ -9,6 +9,11 @@ Just expose a certain route in your web application to execute the job
 (or to schedule backround job) and trigger
 `little_bastard` image to execute request on it.
 
+...or you can use this Docker image to test your application against
+DDOS attack.
+
+**There is a known issue with `oom` - Out of memory restarting Docker
+container after several hors**, please check https://github.com/equivalent/little_bastard/issues/2 for mor details
 
 ## Usage
 
@@ -17,7 +22,6 @@ Just expose a certain route in your web application to execute the job
 ```bash
 docker pull equivalent/little_bastard
 ```
-
 
 Specify `URL` env variable
 
@@ -196,6 +200,7 @@ I'm recommending to reserve container memory of `150`MB (e.g.: in AWS EB). That 
 Allocating lower than `95` MB memory will cause container to crush with `oom` (out of memory) in `/var/log/docker-events` ([more info](http://www.eq8.eu/blogs/25-common-aws-elastic-beanstalk-docker-issues-and-solutions))
 
 The lowest number I manage to allocate without causing docker container to crush  was `100` MB. (Reater was doing multiple requests to multiple endpoints and it worked).
+
 
 ## Kill the container
 
